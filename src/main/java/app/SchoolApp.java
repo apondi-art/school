@@ -7,7 +7,7 @@ import java.util.Scanner;
 public class SchoolApp {
 
     final Scanner scanner = new Scanner(System.in);
-    final Principal principal = new Principal("Mr John", 50, "P001", "Admin");
+    final Principal principal = new Principal("Mrs Quinter", 50, "P001", "Admin");
     private ClassRoom classRoom = new ClassRoom("JSS1");
     private int idCounter = 1;
 

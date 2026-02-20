@@ -71,3 +71,6 @@ school/
 ## Terminal Interaction
 
 Example workflow:
+
+Author
+Quinter Ochieng

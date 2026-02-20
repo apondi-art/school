@@ -4,7 +4,7 @@ package module;
 public class Course {
     final String courseName;
     final String courseCode;
-     Teacher teacher;
+    Teacher teacher;
 
     public Course(String courseName, String courseCode) {
         this.courseName = courseName;

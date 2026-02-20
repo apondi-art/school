@@ -1,14 +1,15 @@
 package app;
 
+
 import module.*;
 
 import java.util.Scanner;
 
 public class SchoolApp {
 
-    final Scanner scanner = new Scanner(System.in);
-    final Principal principal = new Principal("Mrs Quinter", 50, "P001", "Admin");
-    private ClassRoom classRoom = new ClassRoom("JSS1");
+    private final Scanner scanner = new Scanner(System.in);
+    private final Principal principal = new Principal("Mrs Quinter", 50, "P001", "Admin");
+    private final ClassRoom classRoom = new ClassRoom("JSS1");
     private int idCounter = 1;
 
     public void start() {
@@ -32,7 +33,7 @@ public class SchoolApp {
         System.out.println("\n==== SCHOOL SYSTEM ====");
         System.out.println("1. Admit Applicant");
         System.out.println("2. Add Course to Student");
-        System.out.println("3. View Students");
+        System.out.println("3. View Students & Courses");
         System.out.println("4. Exit");
         System.out.print("Select Option: ");
     }
@@ -52,7 +53,7 @@ public class SchoolApp {
 
         if(admitted != null) {
             classRoom.addStudent(admitted);
-            System.out.println("Admission successful!");
+            System.out.println("Admission successful for " + admitted.getName() + "!");
         } else {
             System.out.println("Admission denied. Age too low.");
         }
@@ -63,10 +64,30 @@ public class SchoolApp {
             System.out.println("No students available.");
             return;
         }
-        Student student = classRoom.getStudents().get(0);
-        Course course = new Course("Mathematics", "MTH101");
+
+        // Let user choose student
+        System.out.println("Select a student to add a course:");
+        for(int i = 0; i < classRoom.getStudents().size(); i++) {
+            System.out.println((i+1) + ". " + classRoom.getStudents().get(i).getName());
+        }
+        int index = scanner.nextInt() - 1;
+        scanner.nextLine();
+        if(index < 0 || index >= classRoom.getStudents().size()) {
+            System.out.println("Invalid selection.");
+            return;
+        }
+        Student student = classRoom.getStudents().get(index);
+
+        // Enter course details
+        System.out.print("Enter Course Name: ");
+        String courseName = scanner.nextLine();
+        System.out.print("Enter Course Code: ");
+        String courseCode = scanner.nextLine();
+
+        Course course = new Course(courseName, courseCode);
         student.takeCourse(course);
-        System.out.println("Course added to student.");
+
+        System.out.println("Course " + course + " added to student " + student.getName() + "!");
     }
 
     private void viewStudents() {
@@ -74,8 +95,17 @@ public class SchoolApp {
             System.out.println("No students available.");
             return;
         }
+
         for(Student s : classRoom.getStudents()) {
-            System.out.println("Student: " + s.getName());
+            System.out.println("\nStudent: " + s.getName());
+            if(s.getCourses().isEmpty()) {
+                System.out.println("  No courses enrolled.");
+            } else {
+                System.out.println("  Courses:");
+                for(Course c : s.getCourses()) {
+                    System.out.println("    - " + c);
+                }
+            }
         }
     }
 

@@ -1,7 +1,8 @@
 package module;
 
+
 public abstract class Staff extends Person {
-    final String department;
+    private String department;
 
     public Staff(String name, int age, String id, String department) {
         super(name, age, id);
